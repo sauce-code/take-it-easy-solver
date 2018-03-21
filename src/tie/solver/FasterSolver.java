@@ -1,10 +1,6 @@
 package tie.solver;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -14,7 +10,7 @@ import java.util.stream.IntStream;
 import tie.core.FasterGame;
 import tie.core.Game;
 
-public class FasterSolver {
+public class FasterSolver extends Solver {
 
 	public static final int STD_POPULATION_SIZE = 1000;
 
@@ -30,20 +26,6 @@ public class FasterSolver {
 
 	public static final boolean STD_LOGGING_ENABLED = false;
 
-	private int populationSize;
-
-	private int generations;
-
-	private int mutationRate;
-
-	private boolean loggingEnabled;
-
-	private BufferedWriter writerBest;
-
-	private BufferedWriter writerPopulationAverage;
-
-	private BufferedWriter writerKeepsAverage;
-
 	public FasterSolver() {
 		this(STD_POPULATION_SIZE, STD_GENERATIONS, STD_MUTATION_RATE,
 				STD_LOGGING_ENABLED);
@@ -56,35 +38,10 @@ public class FasterSolver {
 
 	public FasterSolver(int populationSize, int generations, int mutationRate,
 			boolean loggingEnabled) {
-
-		this.populationSize = populationSize;
-		this.generations = generations;
-		this.mutationRate = mutationRate;
-		this.loggingEnabled = loggingEnabled;
-
-		// init filewriters for logging
-		if (loggingEnabled) {
-			try {
-				Path pathBest = Paths
-						.get(System.getProperty("user.dir") + "/best.txt");
-				writerBest = Files.newBufferedWriter(pathBest);
-
-				Path pathPopulationAverage = Paths
-						.get(System.getProperty("user.dir")
-								+ "/population-average.txt");
-				writerPopulationAverage = Files
-						.newBufferedWriter(pathPopulationAverage);
-
-				Path pathKeepsAverage = Paths.get(
-						System.getProperty("user.dir") + "/keeps-average.txt");
-				writerKeepsAverage = Files.newBufferedWriter(pathKeepsAverage);
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-
+		super(populationSize, generations, mutationRate, loggingEnabled);
 	}
 
+	@Override
 	public Game tryToSolve() {
 
 		// init population
@@ -94,7 +51,8 @@ public class FasterSolver {
 
 		// init keeps
 		LinkedList<Game> keeps = new LinkedList<Game>();
-		IntStream.range(0, populationSize).forEach(i -> keeps.add(new FasterGame()));
+		IntStream.range(0, populationSize)
+				.forEach(i -> keeps.add(new FasterGame()));
 		Collections.sort(keeps);
 
 		// GO

@@ -29,19 +29,19 @@ public class Solver {
 
 	public static final boolean STD_LOGGING_ENABLED = false;
 
-	private int populationSize;
+	protected int populationSize;
 
-	private int generations;
+	protected int generations;
 
-	private int mutationRate;
+	protected int mutationRate;
 
-	private boolean loggingEnabled;
+	protected boolean loggingEnabled;
 
-	private BufferedWriter writerBest;
+	protected BufferedWriter writerBest;
 
-	private BufferedWriter writerPopulationAverage;
+	protected BufferedWriter writerPopulationAverage;
 
-	private BufferedWriter writerKeepsAverage;
+	protected BufferedWriter writerKeepsAverage;
 
 	public Solver() {
 		this(STD_POPULATION_SIZE, STD_GENERATIONS, STD_MUTATION_RATE,
