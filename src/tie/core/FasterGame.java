@@ -9,12 +9,15 @@ package tie.core;
  *
  */
 public class FasterGame extends Game {
-
+	
 	/**
 	 * Creates a new {@link FasterGame}.
 	 */
 	public FasterGame() {
 		super();
+		
+		movableBoardTiles = BOARD_CAPACITY - 1;
+		movableTiles = TILE_COUNT - 1;;
 
 		// define tile { 2 1 3 }
 		Tile small = new Tile(Tile.A[0], Tile.B[0], Tile.C[0]);
@@ -54,27 +57,6 @@ public class FasterGame extends Game {
 	public FasterGame(FasterGame o) {
 		this();
 		clone(o);
-	}
-
-	@Override
-	public void swap() {
-		int swap1 = randomInt(BOARD_CAPACITY - 1);
-		int swap2;
-		do {
-			swap2 = randomInt(TILE_COUNT - 1);
-		} while (swap1 == swap2);
-		swapMap.get(swap1).swap(swapMap.get(swap2));
-		evaluateScore();
-	}
-
-	@Override
-	public void swap(int n) {
-		for (int i = 0; i < n; i++) {
-			int swap1 = randomInt(BOARD_CAPACITY - 1);
-			int swap2 = randomInt(TILE_COUNT - 1);
-			swapMap.get(swap1).swap(swapMap.get(swap2));
-		}
-		evaluateScore();
 	}
 
 	/**

@@ -68,6 +68,17 @@ public class Game implements Comparable<Game> {
 	};
 
 	/**
+	 * The total number of movable tiles on the board.
+	 */
+	protected int movableBoardTiles = BOARD_CAPACITY;
+
+	/**
+	 * The total number of movable tiles, including the ones on the board and in
+	 * the reserve.
+	 */
+	protected int movableTiles = TILE_COUNT;
+
+	/**
 	 * The current score.
 	 */
 	protected int score;
@@ -250,10 +261,10 @@ public class Game implements Comparable<Game> {
 	 * Swaps 2 random tiles and calculates the new score.
 	 */
 	public void swap() {
-		int swap1 = randomInt(BOARD_CAPACITY);
+		int swap1 = randomInt(movableBoardTiles);
 		int swap2;
 		do {
-			swap2 = randomInt(TILE_COUNT);
+			swap2 = randomInt(movableTiles);
 		} while (swap1 == swap2);
 		swapMap.get(swap1).swap(swapMap.get(swap2));
 		evaluateScore();
@@ -269,8 +280,8 @@ public class Game implements Comparable<Game> {
 	 */
 	public void swap(int n) {
 		for (int i = 0; i < n; i++) {
-			int swap1 = randomInt(BOARD_CAPACITY);
-			int swap2 = randomInt(TILE_COUNT);
+			int swap1 = randomInt(movableBoardTiles);
+			int swap2 = randomInt(movableTiles);
 			swapMap.get(swap1).swap(swapMap.get(swap2));
 		}
 		evaluateScore();
